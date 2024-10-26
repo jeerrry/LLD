@@ -26,7 +26,7 @@ public class ReadyState implements MachineState{
         }
 
         if(totalPayment < requiredPayment){
-            double shortAmount = totalPayment - requiredPayment;
+            double shortAmount = requiredPayment - totalPayment;
             System.out.println("Please insert "+shortAmount+"$ more for completing order...!");
             return;
         }

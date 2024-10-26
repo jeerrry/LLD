@@ -45,12 +45,33 @@ public class Machine {
         }
     }
 
+    public void addCoffeeToMenu(Coffee coffee) {
+        boolean found = false;
+        found = coffees.stream().anyMatch(x -> x.getName().equals(coffee.getName()));
+
+        if (found) return;
+
+        coffees.add(coffee);
+    }
+
     public Coffee getSelectedCoffee() {
         return selectedCoffee;
     }
 
     public void setSelectedCoffee(Coffee selectedCoffee) {
         this.selectedCoffee = selectedCoffee;
+    }
+
+    public void selectCoffee(Coffee selectedCoffee) {
+        this.currentState.selectCoffee(selectedCoffee);
+    }
+
+    public void makePayment(double payment) {
+        this.currentState.acceptPayment(payment);
+    }
+
+    public void getCoffeeWithChange() {
+        this.currentState.dispenseCoffee();
     }
 
     public void updateState(MachineState targetState) {

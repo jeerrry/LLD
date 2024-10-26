@@ -18,6 +18,7 @@ public class IdleState implements MachineState {
             }
         }
 
+        System.out.println("Order placed, kindly make payment of "+coffee.getPrice());
         machine.setSelectedCoffee(coffee);
         machine.updateState(machine.getReadyState());
     }
