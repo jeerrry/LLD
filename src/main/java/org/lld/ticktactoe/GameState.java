@@ -1,4 +1,4 @@
-package org.lld.ticktacktoe;
+package org.lld.ticktactoe;
 
 public enum GameState {
     PLAY,

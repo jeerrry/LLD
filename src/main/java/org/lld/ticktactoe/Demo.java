@@ -1,4 +1,4 @@
-package org.lld.ticktacktoe;
+package org.lld.ticktactoe;
 
 public class Demo {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package org.lld.ticktacktoe;
+package org.lld.ticktactoe;
 
 public class Player {
     private final String name;
