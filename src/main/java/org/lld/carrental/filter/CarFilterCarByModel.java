@@ -4,10 +4,10 @@ import org.lld.carrental.Car;
 
 import java.util.List;
 
-public class CarFilterByModel implements Filter {
+public class CarFilterCarByModel implements FilterCar {
     private final String model;
 
-    public CarFilterByModel(String model) {
+    public CarFilterCarByModel(String model) {
         this.model = model;
     }
 

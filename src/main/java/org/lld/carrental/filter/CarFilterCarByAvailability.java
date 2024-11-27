@@ -4,10 +4,10 @@ import org.lld.carrental.Car;
 
 import java.util.List;
 
-public class CarFilterByAvailability implements Filter {
+public class CarFilterCarByAvailability implements FilterCar {
     private final boolean isAvailable;
 
-    public CarFilterByAvailability(boolean isAvailable) {
+    public CarFilterCarByAvailability(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
 

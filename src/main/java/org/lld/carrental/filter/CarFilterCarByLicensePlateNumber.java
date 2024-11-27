@@ -4,10 +4,10 @@ import org.lld.carrental.Car;
 
 import java.util.List;
 
-public class CarFilterByLicensePlateNumber implements Filter {
+public class CarFilterCarByLicensePlateNumber implements FilterCar {
     public String licensePlateNumber;
 
-    public CarFilterByLicensePlateNumber(String licensePlateNumber) {
+    public CarFilterCarByLicensePlateNumber(String licensePlateNumber) {
         this.licensePlateNumber = licensePlateNumber;
     }
 

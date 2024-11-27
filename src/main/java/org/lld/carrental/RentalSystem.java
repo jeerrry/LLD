@@ -1,8 +1,9 @@
 package org.lld.carrental;
 
-import org.lld.carrental.filter.CarFilterByAvailability;
-import org.lld.carrental.filter.CarFilterById;
-import org.lld.carrental.filter.Filter;
+import org.lld.carrental.filter.CarFilterCarByAvailability;
+import org.lld.carrental.filter.CarFilterCarById;
+import org.lld.carrental.filter.FilterCar;
+import org.lld.carrental.filter.FilterReservation;
 import org.lld.carrental.payment.Payment;
 
 import java.util.List;
@@ -39,17 +40,26 @@ public class RentalSystem {
         customers.add(customer);
     }
 
-    public List<Car> filterCar(Filter... filters) {
+    public List<Car> filterCar(FilterCar... filterCars) {
         List<Car> result = cars;
-        for (Filter filter : filters) {
-            result = filter.filter(result);
+        for (FilterCar filterCar : filterCars) {
+            result = filterCar.filter(result);
+        }
+
+        return result;
+    }
+
+    public List<Reservation> filterReservations(FilterReservation... filterCars) {
+        List<Reservation> result = reservations;
+        for (FilterReservation filterReservation : filterCars) {
+            result = filterReservation.filter(result);
         }
 
         return result;
     }
 
     public synchronized void addReservation(Reservation reservation) {
-        List<Car> cars = filterCar(new CarFilterById(reservation.getCar().getId()), new CarFilterByAvailability(true));
+        List<Car> cars = filterCar(new CarFilterCarById(reservation.getCar().getId()), new CarFilterCarByAvailability(true));
         if (cars.isEmpty()) {
             System.out.println("Reservation failed! Car not available");
             return;
@@ -65,7 +75,7 @@ public class RentalSystem {
         System.out.println("Refund reservation: " + booked.getId() + " amount: " + booked.getTotalRent());
     }
 
-    private boolean chargeCustomer(Reservation reservation, Payment paymentMethod) {
+    public boolean chargeCustomer(Reservation reservation, Payment paymentMethod) {
         float amount = reservation.getTotalRent();
         if (paymentMethod.charge(amount)) {
             reservation.setPaid(true);

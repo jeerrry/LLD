@@ -4,6 +4,6 @@ import org.lld.carrental.Car;
 
 import java.util.List;
 
-public interface Filter {
+public interface FilterCar {
     public List<Car> filter(List<Car> list);
 }

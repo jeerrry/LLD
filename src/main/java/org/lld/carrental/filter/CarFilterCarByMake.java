@@ -4,10 +4,10 @@ import org.lld.carrental.Car;
 
 import java.util.List;
 
-public class CarFilterByMake implements Filter {
+public class CarFilterCarByMake implements FilterCar {
     private final String make;
 
-    public CarFilterByMake(String make) {
+    public CarFilterCarByMake(String make) {
         this.make = make;
     }
 

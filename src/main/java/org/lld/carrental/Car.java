@@ -1,17 +1,15 @@
 package org.lld.carrental;
 
-import java.time.Year;
-
 public class Car {
     private final int id;
     private final String make;
     private final String model;
     private final String licensePlateNumber;
-    private final Year year;
+    private final int year;
     private float dailyRent;
     private boolean isAvailable = true;
 
-    public Car(String make, String model, String licensePlateNumber, Year year, float dailyRent) {
+    public Car(String make, String model, String licensePlateNumber, int year, float dailyRent) {
         this.id = Helper.getId();
         this.make = make;
         this.model = model;
@@ -32,7 +30,7 @@ public class Car {
         return model;
     }
 
-    public Year getYear() {
+    public int getYear() {
         return year;
     }
 

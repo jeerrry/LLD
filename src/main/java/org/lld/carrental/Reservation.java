@@ -1,17 +1,20 @@
 package org.lld.carrental;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Reservation {
     private final int id;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Customer customer;
     private Car car;
     private boolean paid = false;
 
-    public Reservation(Date startDate, Date endDate, Customer customer, Car car) {
+    public Reservation(LocalDate startDate, LocalDate endDate, Customer customer, Car car) {
         this.id = Helper.getId();
         this.startDate = startDate;
         this.endDate = endDate;
@@ -23,11 +26,11 @@ public class Reservation {
         return id;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -47,17 +50,16 @@ public class Reservation {
         this.car = car;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
     public float getTotalRent() {
-        long diff = endDate.getTime() - startDate.getTime();
-        long days = TimeUnit.MILLISECONDS.toDays(diff);
+        long days = ChronoUnit.DAYS.between(startDate, endDate);
 
         return Math.max(1, days) * car.getDailyRent();
     }
