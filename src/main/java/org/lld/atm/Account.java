@@ -39,6 +39,9 @@ public class Account {
     }
 
     public void debit(double amount) {
+        if (amount > balance) {
+            throw new RuntimeException("Insufficient balance");
+        }
         balance -= amount;
     }
 
