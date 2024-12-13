@@ -19,6 +19,11 @@ public class ATMCashCollectState implements MachineState {
 
     @Override
     public void collectCash() {
+        if (atm.getCurrentState() != atm.cashCollectState) {
+            System.out.println("Invalid Request");
+            return;
+        }
+
         atm.getCurrentTransaction().execute();
         System.out.println("Kindly collect the cash " + atm.getCurrentTransaction().getAmount());
         System.out.println("Collect your receipt as well...!");

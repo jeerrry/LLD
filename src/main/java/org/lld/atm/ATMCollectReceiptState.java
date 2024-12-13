@@ -24,6 +24,11 @@ public class ATMCollectReceiptState implements MachineState {
 
     @Override
     public void collectReceipt() {
+        if (atm.getCurrentState() != atm.collectReceiptState) {
+            System.out.println("Invalid Request");
+            return;
+        }
+
         System.out.println("Receipt collected!");
         atm.setCurrentState(atm.readyState);
     }

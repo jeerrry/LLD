@@ -18,6 +18,7 @@ public class ATM {
         cashInputState = new ATMCashInputState(this);
         cashCollectState = new ATMCashCollectState(this);
         collectReceiptState = new ATMCollectReceiptState(this);
+        currentState = readyState;
     }
 
     public BankingService getBankingService() {
@@ -50,5 +51,21 @@ public class ATM {
 
     public void setCurrentTransaction(Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
+    }
+
+    public void insertCard(Card card) {
+        currentState.readyState(card);
+    }
+
+    public void inputWithDrawlAmount(double amount) {
+        currentState.targetAmount(amount);
+    }
+
+    public void collectCash() {
+        currentState.collectCash();
+    }
+
+    public void collectReceipt() {
+        currentState.collectReceipt();
     }
 }

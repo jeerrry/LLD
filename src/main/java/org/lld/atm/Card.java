@@ -3,12 +3,12 @@ package org.lld.atm;
 public class Card {
     private final int id;
     private final String number;
-    private final int ccv;
+    private final String ccv;
     private final CardType type;
     private final CardProvider provider;
     private String pin;
 
-    public Card(String number, int ccv, CardType type, CardProvider provider) {
+    public Card(String number, String ccv, CardType type, CardProvider provider) {
         this.type = type;
         this.provider = provider;
         this.id = Utils.getID();
@@ -24,7 +24,7 @@ public class Card {
         return number;
     }
 
-    public int getCcv() {
+    public String getCcv() {
         return ccv;
     }
 

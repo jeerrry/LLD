@@ -14,12 +14,17 @@ public class ATMCashInputState implements MachineState {
 
     @Override
     public void targetAmount(double amount) {
+        if(atm.getCurrentState() != atm.cashInputState) {
+            System.out.println("Invalid Request");
+            return;
+        }
+
         if (atm.getCurrentAccount().getBalance() < amount) {
             System.out.println("Insufficient Balance");
             return;
         }
 
-        atm.setCurrentTransaction(new CreditTransaction(atm.getCurrentAccount(), amount));
+        atm.setCurrentTransaction(new DebitTransaction(atm.getCurrentAccount(), amount));
         atm.setCurrentState(atm.cashCollectState);
     }
 

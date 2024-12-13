@@ -9,6 +9,10 @@ public class ATMReadyState implements MachineState {
 
     @Override
     public void readyState(Card card) {
+        if (atm.getCurrentState() != atm.readyState) {
+            System.out.println("Invalid Request");
+            return;
+        }
         var account = atm.getBankingService().getAccountByCard(card);
         if (account == null) {
             System.out.println("Invalid card!");
