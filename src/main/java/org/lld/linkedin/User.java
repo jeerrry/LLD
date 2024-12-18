@@ -9,7 +9,6 @@ public class User {
     private String email;
     private String password;
     private final Profile profile;
-    private final List<Connection> connections = new ArrayList<>();
 
     public User(String name, String email, String password, Profile profile) {
         id = Utils.getId();
