@@ -3,9 +3,22 @@ package org.lld.linkedin;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ConnectionService {
-    private ConcurrentHashMap<User, HashMap<User, Connection>> connections = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<User, Set<Connection>> connectionRequests = new ConcurrentHashMap<>();
+@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+public class ConnectionService{
+    private static ConnectionService instance;
+
+    public static ConnectionService getInstance() {
+        if (instance == null) {
+            instance = new ConnectionService();
+        }
+        return instance;
+    }
+
+    private ConnectionService() {
+    }
+
+    private final ConcurrentHashMap<User, HashMap<User, Connection>> connections = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<User, Set<Connection>> connectionRequests = new ConcurrentHashMap<>();
 
     public boolean sendConnectionRequest(Connection connection) {
         if (isConnectionRequestAlreadySent(connection)) {
@@ -46,10 +59,10 @@ public class ConnectionService {
     }
 
     private boolean isConnectionAlreadyMade(Connection connection) {
+        // Since the connection graph is bidirectional we can rely on sender containing connection to target.
         HashMap<User, Connection> sender = connections.getOrDefault(connection.getUser1(), new HashMap<>());
-        HashMap<User, Connection> receiver = connections.getOrDefault(connection.getUser2(), new HashMap<>());
 
-        return sender.containsKey(connection.getUser2()) && receiver.containsKey(connection.getUser1());
+        return sender.containsKey(connection.getUser2());
     }
 
     public Set<Connection> getConnectionRequests(User user) {

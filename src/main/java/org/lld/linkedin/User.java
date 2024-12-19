@@ -1,8 +1,5 @@
 package org.lld.linkedin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
     private final int id;
     private String name;
