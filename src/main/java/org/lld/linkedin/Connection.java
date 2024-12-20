@@ -6,15 +6,15 @@ import java.util.Objects;
 public class Connection {
     private final int id;
     private final LocalDate date;
-    private final User user1; // Connection Request Sender
-    private final User user2; // Connection Request Receiver
+    private final User sender; // Connection Request Sender
+    private final User receiver;// Connection Request Receiver
     private boolean connected = false;
 
-    public Connection(User user1, User user2) {
+    public Connection(User sender, User user2) {
         id = Utils.getId();
         this.date = LocalDate.now();
-        this.user1 = user1;
-        this.user2 = user2;
+        this.sender = sender;
+        this.receiver = user2;
     }
 
     public int getId() {
@@ -25,16 +25,16 @@ public class Connection {
         return date;
     }
 
-    public User getUser1() {
-        return user1;
+    public User getSender() {
+        return sender;
     }
 
-    public User getUser2() {
-        return user2;
+    public User getReceiver() {
+        return receiver;
     }
 
     public User getConnectedUser(User user) {
-        return user.equals(user1) ? user2 : user1;
+        return user.equals(sender) ? receiver : sender;
     }
 
     public void setConnectionStatus(boolean connected) {
@@ -46,7 +46,7 @@ public class Connection {
     }
 
     public boolean isSender(User user) {
-        return user.getId() == user1.getId();
+        return user.getId() == sender.getId();
     }
 
     @Override
@@ -55,11 +55,11 @@ public class Connection {
         if (obj == null || getClass() != obj.getClass()) return false;
 
         Connection connection = (Connection) obj;
-        return user1.getId() == connection.user1.getId() && user2.getId() == connection.user2.getId();
+        return sender.getId() == connection.sender.getId() && receiver.getId() == connection.receiver.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user1, user2);
+        return Objects.hash(sender, receiver);
     }
 }

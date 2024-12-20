@@ -31,6 +31,10 @@ public class NotificationService {
         return notifications.getOrDefault(user, new ArrayList<>()).stream().filter(x -> !x.isRead()).toList();
     }
 
+    public List<Notification> getNotificationByType(User user, NotificationType type) {
+        return getNotificationsByUser(user).stream().filter(x -> x.getType() == type).toList();
+    }
+
     public boolean markNotificationAsReadById(int notificationId) {
         Notification target = null;
         for (List<Notification> notificationList : notifications.values()) {
