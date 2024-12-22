@@ -18,7 +18,7 @@ public class NotificationService {
     private NotificationService() {
     }
 
-    private final ConcurrentHashMap<User, ArrayList<Notification>> notifications = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Account, ArrayList<Notification>> notifications = new ConcurrentHashMap<>();
 
     public boolean sendNotification(Notification notification) {
         ArrayList<Notification> notificationList = notifications.getOrDefault(notification.getReceiver(), new ArrayList<>());
@@ -27,12 +27,12 @@ public class NotificationService {
         return true;
     }
 
-    public List<Notification> getNotificationsByUser(User user) {
-        return notifications.getOrDefault(user, new ArrayList<>()).stream().filter(x -> !x.isRead()).toList();
+    public List<Notification> getNotificationsByAccount(Account account) {
+        return notifications.getOrDefault(account, new ArrayList<>()).stream().filter(x -> !x.isRead()).toList();
     }
 
-    public List<Notification> getNotificationByType(User user, NotificationType type) {
-        return getNotificationsByUser(user).stream().filter(x -> x.getType() == type).toList();
+    public List<Notification> getNotificationByType(Account account, NotificationType type) {
+        return getNotificationsByAccount(account).stream().filter(x -> x.getType() == type).toList();
     }
 
     public boolean markNotificationAsReadById(int notificationId) {
@@ -51,8 +51,8 @@ public class NotificationService {
         return false;
     }
 
-    public boolean markAllUserNotificationsAsRead(User user) {
-        List<Notification> notifications = getNotificationsByUser(user);
+    public boolean markAllAccountNotificationsAsRead(Account account) {
+        List<Notification> notifications = getNotificationsByAccount(account);
         for (Notification notification : notifications) {
             notification.setNotificationStatus(true);
         }

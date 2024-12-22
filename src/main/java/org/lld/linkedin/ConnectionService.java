@@ -17,8 +17,8 @@ public class ConnectionService {
     private ConnectionService() {
     }
 
-    private final ConcurrentHashMap<User, HashMap<User, Connection>> connections = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<User, Set<Connection>> connectionRequests = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Account, HashMap<Account, Connection>> connections = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Account, Set<Connection>> connectionRequests = new ConcurrentHashMap<>();
 
     public boolean sendConnectionRequest(Connection connection) {
         if (isConnectionRequestAlreadySent(connection)) {
@@ -26,8 +26,8 @@ public class ConnectionService {
             return false;
         }
 
-        Set<Connection> userConnectionRequests = connectionRequests.getOrDefault(connection.getReceiver(), new HashSet<>());
-        userConnectionRequests.add(connection);
+        Set<Connection> accountConnectionRequests = connectionRequests.getOrDefault(connection.getReceiver(), new HashSet<>());
+        accountConnectionRequests.add(connection);
         NotificationService.getInstance()
                 .sendNotification(
                         new Notification("New Connection Request from " + connection.getSender().getName(),
@@ -38,7 +38,7 @@ public class ConnectionService {
 
     public boolean acceptConnectionRequest(Connection connection) {
         if (isConnectionAlreadyMade(connection)) {
-            System.out.println("Both users already connected");
+            System.out.println("Both accounts already connected");
             return false;
         }
 
@@ -46,8 +46,8 @@ public class ConnectionService {
         requests.remove(connection);
         connection.setConnectionStatus(true);
 
-        HashMap<User, Connection> sender = connections.getOrDefault(connection.getSender(), new HashMap<>());
-        HashMap<User, Connection> receiver = connections.getOrDefault(connection.getReceiver(), new HashMap<>());
+        HashMap<Account, Connection> sender = connections.getOrDefault(connection.getSender(), new HashMap<>());
+        HashMap<Account, Connection> receiver = connections.getOrDefault(connection.getReceiver(), new HashMap<>());
 
         sender.put(connection.getReceiver(), connection);
         receiver.put(connection.getSender(), connection);
@@ -76,16 +76,16 @@ public class ConnectionService {
 
     private boolean isConnectionAlreadyMade(Connection connection) {
         // Since the connection graph is bidirectional we can rely on sender containing connection to target.
-        HashMap<User, Connection> sender = connections.getOrDefault(connection.getSender(), new HashMap<>());
+        HashMap<Account, Connection> sender = connections.getOrDefault(connection.getSender(), new HashMap<>());
 
         return sender.containsKey(connection.getReceiver());
     }
 
-    public Set<Connection> getConnectionRequests(User user) {
-        return connectionRequests.getOrDefault(user, new HashSet<>());
+    public Set<Connection> getConnectionRequests(Account account) {
+        return connectionRequests.getOrDefault(account, new HashSet<>());
     }
 
-    public List<User> getConnections(User user) {
-        return connections.getOrDefault(user, new HashMap<>()).keySet().stream().toList();
+    public List<Account> getConnections(Account account) {
+        return connections.getOrDefault(account, new HashMap<>()).keySet().stream().toList();
     }
 }

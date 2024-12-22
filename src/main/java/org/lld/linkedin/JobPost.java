@@ -10,8 +10,8 @@ public class JobPost extends Post {
     private double minSalary;
     private double maxSalary;
 
-    public JobPost(List<String> skills, String location, double minSalary, double maxSalary, User user, LocalDate date, String text) {
-        super(user, date, text);
+    public JobPost(List<String> skills, String location, double minSalary, double maxSalary, Account account, LocalDate date, String text) {
+        super(account, date, text);
         this.skills.addAll(skills);
         this.location = location;
         this.minSalary = minSalary;

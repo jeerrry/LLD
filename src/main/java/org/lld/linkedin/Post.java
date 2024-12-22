@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public abstract class Post {
     private final int id;
-    private final User user;
+    private final Account account;
     private final LocalDate date;
     private String text;
 
-    public Post(User user, LocalDate date, String text) {
+    public Post(Account account, LocalDate date, String text) {
         this.id = Utils.getId();
-        this.user = user;
+        this.account = account;
         this.date = date;
         this.text = text;
     }
@@ -23,8 +23,8 @@ public abstract class Post {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public Account getUser() {
+        return account;
     }
 
     public LocalDate getDate() {

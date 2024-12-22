@@ -3,12 +3,12 @@ package org.lld.linkedin;
 public class Notification {
     private final int id;
     private final String text;
-    private final User sender;
-    private final User receiver;
+    private final Account sender;
+    private final Account receiver;
     private final NotificationType type;
     private boolean read = false;
 
-    public Notification(String text, User sender, User receiver, NotificationType type) {
+    public Notification(String text, Account sender, Account receiver, NotificationType type) {
         id = Utils.getId();
         this.text = text;
         this.sender = sender;
@@ -24,11 +24,11 @@ public class Notification {
         return text;
     }
 
-    public User getSender() {
+    public Account getSender() {
         return sender;
     }
 
-    public User getReceiver() {
+    public Account getReceiver() {
         return receiver;
     }
 

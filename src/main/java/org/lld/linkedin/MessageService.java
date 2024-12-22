@@ -18,22 +18,22 @@ public class MessageService {
     private MessageService() {
     }
 
-    private final ConcurrentHashMap<User, PriorityQueue<Message>> messages = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Account, PriorityQueue<Message>> messages = new ConcurrentHashMap<>();
 
     public boolean sendMessage(final Message message) {
         PriorityQueue<Message> inbox = messages.getOrDefault(message.getReceiver(), new PriorityQueue<>((x, y) -> y.getId() - x.getId()));
 
         inbox.add(message);
 
-        // TODO! Could batch notifications inboxed to the same user for improved performance.
+        // TODO! Could batch notifications inboxed to the same account for improved performance.
         NotificationService.getInstance().sendNotification(new Notification("New message received from " + message.getSender().getName(), message.getReceiver(), message.getReceiver(), NotificationType.MESSAGE));
 
         return true;
     }
 
-    public List<Message> getUserUnreadMessages(final User user) {
-        PriorityQueue<Message> inbox = messages.getOrDefault(user, new PriorityQueue<>());
-        NotificationService.getInstance().getNotificationByType(user, NotificationType.MESSAGE).forEach(x -> NotificationService.getInstance().markNotificationAsReadById(x.getId()));
+    public List<Message> getAccountUnreadMessages(final Account account) {
+        PriorityQueue<Message> inbox = messages.getOrDefault(account, new PriorityQueue<>());
+        NotificationService.getInstance().getNotificationByType(account, NotificationType.MESSAGE).forEach(x -> NotificationService.getInstance().markNotificationAsReadById(x.getId()));
 
         return inbox.stream().filter(x -> !x.isRead()).sorted((x, y) -> y.getId() - x.getId()).toList();
     }

@@ -6,15 +6,15 @@ import java.util.Objects;
 public class Connection {
     private final int id;
     private final LocalDate date;
-    private final User sender; // Connection Request Sender
-    private final User receiver;// Connection Request Receiver
+    private final Account sender; // Connection Request Sender
+    private final Account receiver;// Connection Request Receiver
     private boolean connected = false;
 
-    public Connection(User sender, User user2) {
+    public Connection(Account sender, Account receiver) {
         id = Utils.getId();
         this.date = LocalDate.now();
         this.sender = sender;
-        this.receiver = user2;
+        this.receiver = receiver;
     }
 
     public int getId() {
@@ -25,28 +25,28 @@ public class Connection {
         return date;
     }
 
-    public User getSender() {
+    public Account getSender() {
         return sender;
     }
 
-    public User getReceiver() {
+    public Account getReceiver() {
         return receiver;
     }
 
-    public User getConnectedUser(User user) {
-        return user.equals(sender) ? receiver : sender;
+    public Account getConnectedAccount(Account account) {
+        return account.equals(sender) ? receiver : sender;
     }
 
     public void setConnectionStatus(boolean connected) {
-        connected = true;
+        this.connected = connected;
     }
 
     public boolean isConnected() {
         return connected;
     }
 
-    public boolean isSender(User user) {
-        return user.getId() == sender.getId();
+    public boolean isSender(Account account) {
+        return account.getId() == sender.getId();
     }
 
     @Override

@@ -5,12 +5,12 @@ import java.time.LocalDate;
 public class Message {
     private final int id;
     private final LocalDate date;
-    private final User sender;
-    private final User receiver;
+    private final Account sender;
+    private final Account receiver;
     private String text;
     private boolean read = false;
 
-    public Message(User sender, User receiver, String text) {
+    public Message(Account sender, Account receiver, String text) {
         this.id = Utils.getId();
         this.date = LocalDate.now();
         this.sender = sender;
@@ -30,11 +30,11 @@ public class Message {
         return read;
     }
 
-    public User getReceiver() {
+    public Account getReceiver() {
         return receiver;
     }
 
-    public User getSender() {
+    public Account getSender() {
         return sender;
     }
 

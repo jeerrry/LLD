@@ -3,7 +3,7 @@ package org.lld.linkedin;
 import java.time.LocalDate;
 
 public class StatusPost extends Post {
-    public StatusPost(User user, LocalDate date, String text) {
-        super(user, date, text);
+    public StatusPost(Account account, LocalDate date, String text) {
+        super(account, date, text);
     }
 }
