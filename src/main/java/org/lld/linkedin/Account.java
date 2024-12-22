@@ -1,6 +1,10 @@
 package org.lld.linkedin;
 
-public abstract class Account {
+import org.lld.linkedin.behavior.Emailable;
+import org.lld.linkedin.behavior.Identifiable;
+import org.lld.linkedin.behavior.Named;
+
+public abstract class Account implements Identifiable, Named, Emailable {
     private final int id;
     private String name;
     private String email;

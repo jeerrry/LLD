@@ -1,10 +1,14 @@
 package org.lld.linkedin;
 
+import org.lld.linkedin.behavior.Locateable;
+import org.lld.linkedin.behavior.SalaryFilterable;
+import org.lld.linkedin.behavior.SkillFilterable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobPost extends Post {
+public class JobPost extends Post implements SalaryFilterable, Locateable, SkillFilterable {
     private final List<String> skills = new ArrayList<>();
     private String location;
     private double minSalary;
@@ -51,5 +55,10 @@ public class JobPost extends Post {
 
     public void setMaxSalary(double maxSalary) {
         this.maxSalary = maxSalary;
+    }
+
+    @Override
+    public List<String> getSkills() {
+        return skills;
     }
 }
