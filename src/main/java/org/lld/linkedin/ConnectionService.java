@@ -36,6 +36,34 @@ public class ConnectionService {
         return true;
     }
 
+    public boolean removeConnection(Connection connection) {
+        if (connection.getSender() == null || connection.getReceiver() == null) {
+            return false;
+        }
+
+        if (!isConnectionAlreadyMade(connection)) {
+            System.out.println("Cannot remove a non-existent connection");
+            return false;
+        }
+
+        // Bi-directional graph
+        connections.get(connection.getSender()).remove(connection.getReceiver());
+        connections.get(connection.getReceiver()).remove(connection.getSender());
+
+        return true;
+    }
+
+    public boolean removeConnectionRequest(Connection connection) {
+        if (!isConnectionRequestAlreadySent(connection)) {
+            System.out.println("Cannot remove non-existent connection request");
+            return false;
+        }
+
+        connectionRequests.get(connection.getReceiver()).remove(connection);
+        System.out.println("Connection request removed");
+        return true;
+    }
+
     public boolean acceptConnectionRequest(Connection connection) {
         if (isConnectionAlreadyMade(connection)) {
             System.out.println("Both accounts already connected");

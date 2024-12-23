@@ -1,5 +1,7 @@
 package org.lld.linkedin;
 
+import org.lld.linkedin.filter.FilterPredicates;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class PostService {
     }
 
     public boolean removePost(int id) {
-        Post post = posts.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+        Post post = SearchService.getInstance().search(posts, FilterPredicates.idFilter(id)).stream().findFirst().orElse(null);
         if (post == null) {
             System.out.println("Invalid post ID " + id + " provided for deletion");
             return false;
