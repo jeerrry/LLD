@@ -28,6 +28,7 @@ public class ConnectionService {
 
         Set<Connection> accountConnectionRequests = connectionRequests.getOrDefault(connection.getReceiver(), new HashSet<>());
         accountConnectionRequests.add(connection);
+        connectionRequests.put(connection.getReceiver(), accountConnectionRequests);
         NotificationService.getInstance()
                 .sendNotification(
                         new Notification("New Connection Request from " + connection.getSender().getName(),
@@ -80,6 +81,8 @@ public class ConnectionService {
         sender.put(connection.getReceiver(), connection);
         receiver.put(connection.getSender(), connection);
 
+        connections.put(connection.getSender(), sender);
+        connections.put(connection.getReceiver(), receiver);
 
         NotificationService.getInstance()
                 .sendNotification(

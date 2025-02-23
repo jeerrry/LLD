@@ -1,13 +1,10 @@
 package org.lld.linkedin;
 
-import org.lld.linkedin.behavior.Accountable;
-import org.lld.linkedin.behavior.Dateable;
-import org.lld.linkedin.behavior.Descriptionable;
-import org.lld.linkedin.behavior.Identifiable;
+import org.lld.linkedin.behavior.*;
 
 import java.time.LocalDate;
 
-public abstract class Post implements Identifiable, Dateable, Accountable, Descriptionable {
+public abstract class Post implements Named, Identifiable, Dateable, Accountable, Descriptionable {
     private final int id;
     private final Account account;
     private final LocalDate date;
@@ -26,6 +23,10 @@ public abstract class Post implements Identifiable, Dateable, Accountable, Descr
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return text;
     }
 
     public Account getAccount() {

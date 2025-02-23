@@ -20,6 +20,10 @@ public class LinkedInService {
         AccountService.getInstance().addAccount(account);
     }
 
+    public List<Account> getAccounts() {
+        return AccountService.getInstance().getAccounts();
+    }
+
     public void removeAccount(Account account) {
         AccountService.getInstance().removeAccount(account);
     }

@@ -24,6 +24,8 @@ public class NotificationService {
         ArrayList<Notification> notificationList = notifications.getOrDefault(notification.getReceiver(), new ArrayList<>());
         notificationList.add(notification);
 
+        notifications.put(notification.getReceiver(), notificationList);
+
         return true;
     }
 

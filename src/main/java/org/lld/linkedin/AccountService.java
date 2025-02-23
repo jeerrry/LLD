@@ -21,8 +21,8 @@ public class AccountService {
     private List<Account> accounts = new ArrayList<Account>();
 
     public boolean addAccount(Account account) {
-        boolean userExists = SearchService.getInstance().search(accounts, FilterPredicates.emailFilter(account.getEmail())).isEmpty();
-        if (!userExists) {
+        boolean userDoesNotExist = SearchService.getInstance().search(accounts, FilterPredicates.emailFilter(account.getEmail())).isEmpty();
+        if (userDoesNotExist) {
             accounts.add(account);
             System.out.println("User registered: " + account.getEmail());
             return true;
@@ -30,6 +30,10 @@ public class AccountService {
 
         System.out.println("User already registered: " + account.getEmail());
         return false;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
     public boolean removeAccount(Account account) {

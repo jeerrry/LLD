@@ -25,6 +25,10 @@ public class PostService {
         posts.add(post);
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
     public boolean removePost(int id) {
         Post post = SearchService.getInstance().search(posts, FilterPredicates.idFilter(id)).stream().findFirst().orElse(null);
         if (post == null) {
